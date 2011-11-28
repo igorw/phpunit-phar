@@ -6,6 +6,8 @@ Packages PHPUnit into a phar archive.
 
     $ ./vendors.sh
     $ php make-phar.php
+    $ # move newly created phpunit.phar where you want to
+    $ php phpunit.phar
 
 ## License
 
