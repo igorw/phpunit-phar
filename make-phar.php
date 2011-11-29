@@ -40,7 +40,7 @@ foreach ($finder as $file) {
     $phar->addFile($filename);
 }
 
-$phar->setStub(<<<EOF
+$phar['_stub.php'] = <<<EOF
 <?php
 
 set_include_path(
@@ -63,8 +63,8 @@ require 'PHPUnit/Autoload.php';
 PHPUnit_TextUI_Command::main();
 
 __HALT_COMPILER();
-EOF
-);
+EOF;
 
+$phar->setDefaultStub('_stub.php');
 $phar->stopBuffering();
 unset($phar);
