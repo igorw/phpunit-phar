@@ -8,6 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+$readonly = ini_get('phar.readonly');
+if ($readonly == '1' || $readonly === true) {
+    die(".phar creation disabled in php.ini!\nRe-run with 'php -d phar.readonly=0 make-phar.php'\n");
+} 
 
 require __DIR__.'/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 $loader = new Symfony\Component\ClassLoader\UniversalClassLoader;
