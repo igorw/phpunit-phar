@@ -24,6 +24,15 @@ if (file_exists($pharFile)) {
     unlink($pharFile);
 }
 
+// make output a little prettier
+$version_file = file_get_contents(__DIR__.'/phpunit/PHPUnit/Runner/Version.php');
+if (strpos($version_file, '@package_version@') !== false) {
+    $pkg = simplexml_load_file(__DIR__.'/phpunit/package.xml');
+    $package_version = (string) $pkg->version->release;
+    $version_file = str_replace('@package_version@', $package_version, $version_file);
+    file_put_contents(__DIR__.'/phpunit/PHPUnit/Runner/Version.php', $version_file);
+}
+
 $phar = new Phar($pharFile, 0, 'phpunit.phar');
 $phar->setSignatureAlgorithm(Phar::SHA1);
 $phar->startBuffering();
