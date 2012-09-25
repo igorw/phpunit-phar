@@ -50,8 +50,11 @@ $finder->files()
 ;
 
 foreach ($finder as $file) {
-    $filename = substr((string)$file, strlen(__DIR__.'/'));
-    $phar->addFile($filename);
+    if (preg_match ('/\\.php$/i', $file) ) {
+        $phar->addFromString(substr($file, strlen(__DIR__) + 1), php_strip_whitespace($file));
+    } else {
+        $phar->addFile($file);
+    }
 }
 
 $phar['_stub.php'] = <<<EOF
@@ -80,5 +83,6 @@ __HALT_COMPILER();
 EOF;
 
 $phar->setDefaultStub('_stub.php');
+$phar->compressFiles(Phar::GZ);
 $phar->stopBuffering();
 unset($phar);
