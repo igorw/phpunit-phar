@@ -80,5 +80,6 @@ __HALT_COMPILER();
 EOF;
 
 $phar->setDefaultStub('_stub.php');
+$phar->compressFiles(Phar::GZ);
 $phar->stopBuffering();
 unset($phar);
